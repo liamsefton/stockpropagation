@@ -213,13 +213,13 @@ for ticker in symbols:
                 dowj_close_data = dowj_data['Close'].head(1).to_string()
                 dowj_close_data = dowj_close_data.split()
 
-                value_list_4.append(float(close_data[2])/current_price)
-                value_list_5.append(float(dowj_close_data[2])/current_dowj_price)
+                value_list_4.append((current_price - float(close_data[2]))/current_price)
+                value_list_5.append((current_dowj_price - float(dowj_close_data[2]))/current_dowj_price)
 
         count += 1
         
         final_list = value_list_1 + value_list_2 + value_list_3 + value_list_4 + value_list_5
-        final_list.append(y)
+        final_list.append((float(y)-current_price)/current_price)
 
         if valid_line:
             writer.writerow(final_list)
