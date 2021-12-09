@@ -152,7 +152,7 @@ for ticker in symbols:
                 new_date2 = next_day.strftime(date_format)
                 data = yfinance.download(ticker,start=new_date1,end=new_date2)
                 if data.empty:
-                    new_date2 = next_day.strftime(date_format)
+                    new_date2 = prev_day.strftime(date_format)
                     data = yfinance.download(ticker,start=new_date2,end=new_date1)
                 counter += 1
 
@@ -171,7 +171,7 @@ for ticker in symbols:
                 new_date2 = next_day.strftime(date_format)
                 dowj_data = yfinance.download("SPY",start=new_date1,end=new_date2)
                 if data.empty:
-                    new_date2 = next_day.strftime(date_format)
+                    new_date2 = prev_day.strftime(date_format)
                     dowj_data = yfinance.download("SPY",start=new_date2,end=new_date1)
                 counter += 1
 
@@ -195,7 +195,7 @@ for ticker in symbols:
                 data = yfinance.download(ticker,start=new_date1,end=new_date2)
                 dowj_data = yfinance.download('SPY',start=new_date1,end=new_date2)
 
-
+                counter = 0
                 while data.empty:
                     if interrupted:
                         valid_line = False
@@ -207,8 +207,13 @@ for ticker in symbols:
                     new_date2 = next_day.strftime(date_format)
                     data = yfinance.download(ticker,start=new_date1,end=new_date2)
                     if data.empty:
-                        new_date2 = next_day.strftime(date_format)
+                        new_date2 = prev_day.strftime(date_format)
                         data = yfinance.download(ticker,start=new_date2,end=new_date1)
+                    if counter > 10:
+                        break
+                    counter += 1
+
+                counter = 0
 
 
                 while dowj_data.empty:
@@ -222,8 +227,12 @@ for ticker in symbols:
                     new_date2 = next_day.strftime(date_format)
                     dowj_data = yfinance.download("SPY",start=new_date1,end=new_date2)
                     if data.empty:
-                        new_date2 = next_day.strftime(date_format)
+                        new_date2 = prev_day.strftime(date_format)
                         dowj_data = yfinance.download("SPY",start=new_date2,end=new_date1)
+                    if counter > 10:
+                        break
+                    counter += 1
+                    
 
                 if valid_line:
                     close_data = data['Close'].head(1).to_string()
