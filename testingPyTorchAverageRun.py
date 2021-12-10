@@ -10,13 +10,13 @@ class ExampleNet(nn.Module):
         super(ExampleNet, self).__init__()
         #This creates the layers
         self.linear_relu_stack = nn.Sequential( 
-            nn.Linear(19, 15),
+            nn.Linear(19, 20),
             #nn.ReLU(),
             nn.Tanh(),
             #nn.Dropout(.2),
-            #nn.Linear(20, 15),
+            nn.Linear(20, 15),
             #nn.ReLU(),
-            #nn.Tanh(),
+            nn.Tanh(),
             #nn.Linear(15, 15),
             #nn.Tanh(),
             nn.Linear(15, 10),
@@ -106,7 +106,7 @@ for z in range(10):
         #Overfitting prevention here
         divergence_threshold = .00001 #if (new average error) - (prev average error) > divergence_threshold
         convergence_threshold = .00005 #if abs(new average error - prev average error) < convergence_threshold 
-        f = open("testingnewclean.txt", "r")
+        f = open("testingnew.txt", "r")
         sum_correct = 0
         num_samples = 0
         for line in f:
@@ -176,7 +176,7 @@ for z in range(10):
 
 
     #Testing
-    f = open("binarytestingclean.txt", "r")
+    f = open("binarytesting.txt", "r")
     sum_correct = 0
     num_samples = 0
     for line in f:
